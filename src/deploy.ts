@@ -82,6 +82,33 @@ export const deploy = async (): Promise<void> => {
     return;
   }
 
+  // Bootstrap CDK
+  spinner.start("Bootstrapping CDK resources...");
+
+  try {
+    await new Promise((resolve, reject) => {
+      shell.exec(
+        `${CONSTANTS.COMMANDS.BOOTSTRAP}`,
+        { silent: true, async: true },
+        (code, stdout, stderr) => {
+          if (code !== 0) {
+            reject(new Error(`Error: Bootstrapping failed. ${stderr}`));
+          } else {
+            resolve(stdout);
+          }
+        }
+      );
+    });
+    spinner.succeed("Bootstrapping completed.");
+  } catch (error) {
+    if (error instanceof Error) {
+      spinner.fail(error.message);
+    } else {
+      spinner.fail("Bootstrapping failed.");
+    }
+    return;
+  }
+
   // Deploy the CDK application
   spinner.start(
     "Deploying the Telegraph AWS resources... This could take up to ten minutes."

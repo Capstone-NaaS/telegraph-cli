@@ -3,6 +3,7 @@ export default {
     DEPLOY:
       'cdk deploy "prod/*" --json --outputs-file ./cdk-output.json --require-approval never',
     DESTROY: `cdk destroy "prod/*" --force`,
+    BOOTSTRAP: "cdk bootstrap",
   },
   REPO: "https://github.com/Capstone-NaaS/naas-cdk.git",
   APP_NAME: "telegraph-cdk",
