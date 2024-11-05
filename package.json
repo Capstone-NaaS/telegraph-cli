@@ -1,0 +1,34 @@
+{
+  "name": "telegraph-cli",
+  "version": "1.0.0",
+  "main": "bin/telegraph.ts",
+  "type": "module",
+  "bin": {
+    "telegraph": "./dist/bin/telegraph.js"
+  },
+  "scripts": {
+    "start": "npm run build && node ./dist/bin/telegraph.js --",
+    "build": "tsc",
+    "dev": "ts-node bin/telegraph.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "CLI tool for deploying Telegraph to AWS",
+  "dependencies": {
+    "boxen": "^8.0.1",
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "inquirer": "^12.0.1",
+    "ora": "^8.1.1",
+    "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "@types/shelljs": "^0.8.15",
+    "typescript": "^5.6.3"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "package.json"
+  ]
+}
