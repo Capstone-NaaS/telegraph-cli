@@ -1,5 +1,5 @@
-import { askForSecretKey } from "../lib/prompts.js";
-import { generateSecretKey, saveSecretKey } from "../lib/helpers.js";
+import { askForSecretKey, askForEmail } from "../lib/prompts.js";
+import { generateSecretKey, saveSecretKey, saveEmail } from "../lib/helpers.js";
 import CONSTANTS from "../lib/constants.js";
 import path from "path";
 import boxen from "boxen";
@@ -9,6 +9,7 @@ import shell from "shelljs";
 export const init = async (): Promise<void> => {
   console.log(chalk.blue("Initializing Telegraph CLI..."));
 
+  // check for missing dependencies
   const missingDependencies: string[] = [];
   CONSTANTS.APP_DEPENDENCIES.forEach((dep) => {
     if (!shell.which(dep)) {
@@ -28,15 +29,24 @@ export const init = async (): Promise<void> => {
 
   console.log(chalk.green("All dependencies are installed."));
 
+  // ask for email to use for email service
+  const email = await askForEmail();
+  const envFilePath = path.resolve(process.cwd(), CONSTANTS.ENV_FILE);
+  saveEmail(email, envFilePath);
+
+  // ask for secret key
   const secretKeyInput = await askForSecretKey();
   const secretKey = secretKeyInput || generateSecretKey();
 
-  const secretFilePath = path.resolve(process.cwd(), CONSTANTS.SECRET_KEY_FILE);
-  saveSecretKey(secretKey, secretFilePath);
+  saveSecretKey(secretKey, envFilePath);
 
   console.log(
     boxen(
-      `Your secret key: ${chalk.yellow(secretKey)}\nKeep this somewhere safe.`,
+      `Your email      : ${chalk.yellow(
+        email
+      )}\nYour secret key : ${chalk.yellow(
+        secretKey
+      )}\nKeep this somewhere safe.`,
       {
         padding: 1,
         margin: 1,

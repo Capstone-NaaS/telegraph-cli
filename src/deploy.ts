@@ -6,22 +6,22 @@ import boxen from "boxen";
 import chalk from "chalk";
 import CONSTANTS from "../lib/constants.js";
 
-const secretKeyPath = path.join(process.cwd(), CONSTANTS.SECRET_KEY_FILE);
 const cdkRepoPath = path.join(process.cwd(), CONSTANTS.APP_NAME);
+const envPath = path.join(process.cwd(), CONSTANTS.ENV_FILE);
 
 export const deploy = async (): Promise<void> => {
   const spinner = ora();
 
   console.log("Starting deployment...");
 
-  let secretKey = "";
-  try {
-    secretKey = fs.readFileSync(secretKeyPath, "utf-8").trim();
-  } catch (error) {
+  // Verify that init was done first
+  if (!fs.existsSync(envPath)) {
     spinner.fail(
-      "Failed to read secret key. Have you initialized the project?"
+      `${chalk.italic(
+        chalk.magenta(".env")
+      )} file not found. Have you initalized the project?`
     );
-    return;
+    process.exit(1);
   }
 
   // Clone the CDK project repository
@@ -41,6 +41,10 @@ export const deploy = async (): Promise<void> => {
         }
       );
     });
+
+    // move .env file to cdk directory
+    fs.renameSync(envPath, `${cdkRepoPath}/${CONSTANTS.ENV_FILE}`);
+
     spinner.succeed("Repository cloned successfully.");
   } catch (error) {
     if (error instanceof Error) {
@@ -72,6 +76,7 @@ export const deploy = async (): Promise<void> => {
         }
       );
     });
+
     spinner.succeed("Dependencies installed.");
   } catch (error) {
     if (error instanceof Error) {
@@ -99,6 +104,7 @@ export const deploy = async (): Promise<void> => {
         }
       );
     });
+
     spinner.succeed("Bootstrapping completed.");
   } catch (error) {
     if (error instanceof Error) {
@@ -114,10 +120,9 @@ export const deploy = async (): Promise<void> => {
     "Deploying the Telegraph AWS resources... This could take up to ten minutes."
   );
   try {
-    shell.env["SECRET_KEY"] = secretKey;
     shell.cd(cdkRepoPath);
 
-    const deployResult = await new Promise<string>((resolve, reject) => {
+    await new Promise<string>((resolve, reject) => {
       shell.exec(
         `${CONSTANTS.COMMANDS.DEPLOY}`,
         { silent: true, async: true },
@@ -132,44 +137,37 @@ export const deploy = async (): Promise<void> => {
     });
 
     spinner.succeed("AWS deployment complete!");
-    handleDeploymentOutput(deployResult);
+    handleDeploymentOutput();
   } catch (error) {
     spinner.fail((error as Error).message);
     return;
-  } finally {
-    spinner.text = "Cleaning up...";
-    await cleanup();
   }
 };
 
-async function cleanup() {
-  const spinner = ora("Cleaning up...").start();
-  try {
-    fs.unlinkSync(secretKeyPath);
-    delete shell.env["SECRET_KEY"];
-    spinner.succeed("Clean up complete.");
-  } catch (err) {
-    spinner.warn(
-      "Failed to delete .secret-key.txt or unset environment variable. Please delete/unset them manually."
-    );
-  }
-}
-
-function handleDeploymentOutput(output: string) {
+function handleDeploymentOutput() {
   const outputData = fs.readFileSync(`./${CONSTANTS.CDK_OUTPUT_FILE}`, "utf8");
   const outputs = JSON.parse(outputData);
 
   const httpApiUrl =
-    outputs["dev-kwang-WebSocketGWStack-dev-kwang"]["wssEndpointdevkwang"];
+    outputs[`dev-kwang-WebSocketGWStack-dev-kwang`][`wssEndpointdevkwang`];
   const websocketApiUrl =
-    outputs["dev-kwang-HttpGWStack-dev-kwang"]["HttpApiInvokeUrldevkwang"];
+    outputs[`dev-kwang-HttpGWStack-dev-kwang`][`HttpApiInvokeUrldevkwang`];
+
+  const envFileContent = fs.readFileSync(
+    `${cdkRepoPath}/${CONSTANTS.ENV_FILE}`,
+    "utf8"
+  );
+  const envLines = envFileContent.split("\n");
+  const secretKeyLine = envLines.find((line) => line.startsWith("SECRET_KEY="));
+  const secretKeyValue = secretKeyLine?.split("=")[1] || "defaultSecretKey";
+
   console.log(
     boxen(
-      `Your secret key: ${chalk.yellow(
-        shell.env["SECRET_KEY"]
-      )}\nHTTP API URL: ${chalk.yellow(
+      `Your secret key   : ${chalk.yellow(
+        secretKeyValue
+      )}\nHTTP API URL      : ${chalk.yellow(
         httpApiUrl
-      )}\nWebSocket API URL: ${chalk.yellow(websocketApiUrl)}`,
+      )}\nWebSocket API URL : ${chalk.yellow(websocketApiUrl)}`,
       {
         padding: 1,
         margin: 1,

@@ -30,7 +30,9 @@ $ which cdk
 $ which git
 ```
 
-The AWS CLI must also be configured by running the `aws configure` command. The account and region must be specified.
+An AWS account must have been created, along with an AWS IAM role with `AdministratorAccess` permissions. The access key and secret access key must have also been created.
+
+The AWS CLI must be configured by running the `aws configure` command. The account and region must be specified.
 
 To initialize Telegraph and ensure your environment is ready for deployment, run:
 
