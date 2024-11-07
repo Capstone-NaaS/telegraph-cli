@@ -1,5 +1,5 @@
 {
-  "name": "telegraph-cli",
+  "name": "@telegraph-notify/telegraph-cli",
   "repository": {
     "type": "git",
     "url": "https://github.com/telegraph-notify/telegraph-cli.git"
