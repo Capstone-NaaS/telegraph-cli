@@ -1,14 +1,18 @@
 {
   "name": "telegraph-cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/telegraph-notify/telegraph-cli.git"
+  },
   "version": "1.0.0",
   "main": "bin/telegraph.ts",
   "type": "module",
   "bin": {
-    "telegraph": "./bin/telegraph.js"
+    "telegraph": "./dist/bin/telegraph.js"
   },
   "scripts": {
     "start": "npm run build && node ./dist/bin/telegraph.js --",
-    "build": "tsc",
+    "build": "rm -rf dist && tsc",
     "dev": "tsx bin/telegraph.ts"
   },
   "author": "",
