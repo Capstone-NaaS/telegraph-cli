@@ -1,8 +1,8 @@
 export default {
   COMMANDS: {
     DEPLOY:
-      'cdk deploy "dev-kwang/*" --json --outputs-file ./cdk-output.json --require-approval never',
-    DESTROY: `cdk destroy "dev-kwang/*" --force`,
+      'cdk deploy "prod/*" --json --outputs-file ./cdk-output.json --require-approval never',
+    DESTROY: `cdk destroy "prod/*" --force`,
     BOOTSTRAP: "cdk bootstrap",
   },
   REPO: "https://github.com/telegraph-notify/telegraph-cdk.git",
