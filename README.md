@@ -10,7 +10,7 @@
 
 ## In testing
 
-To run directly from the repository, run the following commands:
+To run directly from the repository, first run `npm run build` then run the following commands:
 
 | Command                  | Function |
 | ------------------------ | -------- |
