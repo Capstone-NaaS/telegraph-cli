@@ -149,9 +149,9 @@ function handleDeploymentOutput() {
   const outputs = JSON.parse(outputData);
 
   const httpApiUrl =
-    outputs[`dev-kwang-WebSocketGWStack-dev-kwang`][`wssEndpointdevkwang`];
+    outputs[`dev-prod-WebSocketGWStack-dev-prod`][`wssEndpointdevprod`];
   const websocketApiUrl =
-    outputs[`dev-kwang-HttpGWStack-dev-kwang`][`HttpApiInvokeUrldevkwang`];
+    outputs[`dev-prod-HttpGWStack-dev-prod`][`HttpApiInvokeUrldevprod`];
 
   const envFileContent = fs.readFileSync(
     `${cdkRepoPath}/${CONSTANTS.ENV_FILE}`,
