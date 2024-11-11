@@ -24,7 +24,11 @@ export const deploy = async (): Promise<void> => {
     process.exit(1);
   }
 
-  // Clone the CDK project repository
+  // Clone the CDK project
+  if (fs.existsSync(cdkRepoPath)) {
+    fs.rmSync(cdkRepoPath, { recursive: true, force: true });
+  }
+
   spinner.start("Cloning the telegraph-cdk repository...");
 
   try {
