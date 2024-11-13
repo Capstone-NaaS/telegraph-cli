@@ -7,16 +7,20 @@
 - [Getting Started](#getting-started)
 - [Deploying to AWS](#deploying-to-aws)
 - [Tearing Down](#tearing-down)
+- [Changing the secret key](#changing-the-secret-key)
+- [Changing the dashboard API key](#changing-the-dashboard-api-key)
 
 ## In testing
 
 To run directly from the repository, first run `npm run build` then run the following commands:
 
-| Command                  | Function |
-| ------------------------ | -------- |
-| `npm run dev -- init`    | Init     |
-| `npm run dev -- deploy`  | Deploy   |
-| `npm run dev -- destroy` | Destroy  |
+| Command                    | Function  |
+| -------------------------- | --------- |
+| `npm run dev -- init`      | Init      |
+| `npm run dev -- deploy`    | Deploy    |
+| `npm run dev -- destroy`   | Destroy   |
+| `npm run dev -- secretkey` | Secretkey |
+| `npm run dev -- apikey`    | APIkey    |
 
 ## Installation
 
@@ -24,7 +28,7 @@ To run directly from the repository, first run `npm run build` then run the foll
 
 To complete initialization successfully, the user must have aws-cli, aws-cdk and git-cli installed. The installation status of these applications can be verified by running the following commands and getting back a file path.
 
-```sh
+```bash
 $ which aws
 $ which cdk
 $ which git
@@ -36,7 +40,7 @@ The AWS CLI must be configured by running the `aws configure` command. The accou
 
 To initialize Telegraph and ensure your environment is ready for deployment, run:
 
-```sh
+```bash
 $ telegraph init
 ```
 
@@ -44,18 +48,34 @@ $ telegraph init
 
 Telegraph is ready to be deployed to AWS after a successful initialization.
 
-```
+```bash
 $ telegraph deploy
 ```
 
-**Note:** The deployment of Telegraph can take about 10 minutes.
+**Note:** The deployment of Telegraph can take about 20 minutes.
 
 ## Tearing down Telegraph
 
 To delete Telegraph from AWS, run:
 
-```
+```bash
 $ telegraph destroy
 ```
 
-**Note:** The removal of Telegraph can take about 10 minutes.
+**Note:** The removal of Telegraph can take about 20 minutes.
+
+## Changing the Secret keyK
+
+To change the secret key on AWS, run:
+
+```bash
+$ telegraph secretkey
+```
+
+## Changing the Dashboard API Key
+
+Toc hange the dashboard API key on AWS, run:
+
+```bash
+$ telegraph apikey
+```
