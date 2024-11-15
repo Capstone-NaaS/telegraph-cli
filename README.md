@@ -62,7 +62,7 @@ $ telegraph destroy
 
 **Note:** The removal of Telegraph can take about 20 minutes.
 
-## Changing the Secret keyK
+## Changing the Secret Key
 
 To change the secret key on AWS, run:
 
