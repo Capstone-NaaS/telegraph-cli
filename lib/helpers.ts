@@ -24,7 +24,8 @@ export const getDashboardAuthorizerNames = (): string[] => {
   );
   const outputs = JSON.parse(outputData);
 
-  const dashboardAuthorizer = outputs[`prod-HttpGWStack-prod`]["PLACEHOLDER"];
+  const dashboardAuthorizer =
+    outputs[CONSTANTS.HTTP_GW_STACK_NAME][CONSTANTS.DASH_AUTH_FN_NAME];
 
   return [dashboardAuthorizer];
 };
@@ -37,11 +38,13 @@ export const getAllAuhotizerNames = (): string[] => {
   const outputs = JSON.parse(outputData);
 
   const websocketAuthorizer =
-    outputs[`prod-WebSocketGWStack-prod`][`WebSocketAuthorizerprod`];
+    outputs[CONSTANTS.WS_GW_STACK_NAME][CONSTANTS.WS_AUTH_FN_NAME];
 
-  const httpAuthorizer = outputs[`prod-HttpGWStack-prod`][`HTTPAuthorizerprod`];
+  const httpAuthorizer =
+    outputs[CONSTANTS.HTTP_GW_STACK_NAME][CONSTANTS.HTTP_AUTH_FN_NAME];
 
-  const dashboardAuthorizer = outputs[`prod-HttpGWStack-prod`]["PLACEHOLDER"];
+  const dashboardAuthorizer =
+    outputs[CONSTANTS.HTTP_GW_STACK_NAME][CONSTANTS.DASH_AUTH_FN_NAME];
 
-  return [websocketAuthorizer, httpAuthorizer];
+  return [websocketAuthorizer, httpAuthorizer, dashboardAuthorizer];
 };

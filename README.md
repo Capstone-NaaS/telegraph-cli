@@ -1,4 +1,4 @@
-# Telegraph
+# Telegraph CLI
 
 ## Table of Contents
 
@@ -21,8 +21,6 @@ To run directly from the repository, first run `npm run build` then run the foll
 | `npm run dev -- destroy`   | Destroy   |
 | `npm run dev -- secretkey` | Secretkey |
 | `npm run dev -- apikey`    | APIkey    |
-
-## Installation
 
 ## Getting Started
 
