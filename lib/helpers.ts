@@ -30,7 +30,7 @@ export const getDashboardAuthorizerNames = (): string[] => {
   return [dashboardAuthorizer];
 };
 
-export const getAllAuhotizerNames = (): string[] => {
+export const getAllAuthorizerNames = (): string[] => {
   const outputData = fs.readFileSync(
     `./${CONSTANTS.APP_NAME}/${CONSTANTS.CDK_OUTPUT_FILE}`,
     "utf8"

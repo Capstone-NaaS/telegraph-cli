@@ -1,5 +1,5 @@
 import { askForSecretKey } from "../lib/prompts.js";
-import { generateSecretKey, getAllAuhotizerNames } from "../lib/helpers.js";
+import { generateSecretKey, getAllAuthorizerNames } from "../lib/helpers.js";
 import boxen from "boxen";
 import chalk from "chalk";
 import ora from "ora";
@@ -20,7 +20,7 @@ export const secretkey = async (): Promise<void> => {
   spinner.start("Changing the secret key on AWS...");
 
   try {
-    const authorizers = getAllAuhotizerNames();
+    const authorizers = getAllAuthorizerNames();
     for (let ind = 0; ind < authorizers.length; ind += 1) {
       const getCommand = new GetFunctionConfigurationCommand({
         FunctionName: authorizers[ind],

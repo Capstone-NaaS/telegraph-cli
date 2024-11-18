@@ -120,7 +120,7 @@ export const deploy = async (): Promise<void> => {
 
   // Deploy the CDK application
   spinner.start(
-    "Deploying the Telegraph AWS resources... This could take up to twenty minutes."
+    "Deploying the Telegraph AWS resources... This could take up to ten minutes."
   );
   try {
     shell.cd(cdkRepoPath);
