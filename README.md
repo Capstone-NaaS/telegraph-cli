@@ -72,7 +72,7 @@ $ telegraph secretkey
 
 ## Changing the Dashboard API Key
 
-Toc hange the dashboard API key on AWS, run:
+To change the dashboard API key on AWS, run:
 
 ```bash
 $ telegraph apikey
