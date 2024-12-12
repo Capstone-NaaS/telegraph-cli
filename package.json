@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/telegraph-notify/telegraph-cli.git"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "bin/telegraph.ts",
   "type": "module",
   "bin": {
@@ -16,7 +16,7 @@
     "dev": "tsx bin/telegraph.ts"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "CLI tool for deploying Telegraph to AWS",
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.689.0",
