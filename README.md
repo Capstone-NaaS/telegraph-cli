@@ -31,6 +31,10 @@ An AWS account must have been created, along with an AWS IAM role with `Administ
 
 The AWS CLI must be configured by running the `aws configure` command. The account and region must be specified using the access keys created in the previous step.
 
+Secret keys to be used in conjunction with the SDKs will be displayed after
+deployment in addition to URLs to the API gateways. Please save these as they
+are necessary to integrate Telegraph services.
+
 To initialize Telegraph and ensure your environment is ready for deployment, run:
 
 ```bash
